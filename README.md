@@ -7,3 +7,6 @@ Fly with Lua plugin for X-Plane that gives digital readings of analog instrument
   - Extract the zip. Copy the `FlyWithLua` directory to your `X-Plane 11\Resources\plugins` directory
 2. Delete the file `X-Plane 11\Resources\plugins\FlyWithLua\Scripts\please read the manual.lua`. You don't need the manual (well, not right now).
 3. Copy `digital-instruments.lua` from this page to `X-Plane 11\Resources\plugins\FlyWithLua\Scripts`
+
+# Using
+A little window showing information from Nav1 and Nav2 will appear. If you close it by mistake, you can re-open it with the menus. Plugins > FlyWithLua > Reload all Lua script files
