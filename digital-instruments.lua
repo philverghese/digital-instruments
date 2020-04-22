@@ -19,9 +19,10 @@ dataref('nav2_obs', 'sim/cockpit/radios/nav2_obs_degm')
 dataref('nav2_fromto', 'sim/cockpit/radios/nav2_fromto')
 dataref('nav2_dme', 'sim/cockpit/radios/nav2_dme_dist_m')
 
-local wnd = float_wnd_create(300, 100, 1, true)
 local fromto_text = {[0]='OFF', [1]='TO', [2]='FROM'}
 
+local wnd = float_wnd_create(200, 80, 1, true)
+float_wnd_set_position(wnd, 100, SCREEN_HIGHT - 150)
 float_wnd_set_title(wnd, 'Digital Instruments')
 float_wnd_set_imgui_builder(wnd, 'DIGI_build_window')
 
