@@ -13,11 +13,6 @@ end
 require('graphics')
 require('math')
 
-
-function clampAngle(angle)
-	return math.fmod(angle + 3600, 360)
-end
-
 dataref('gps1_crs', 'sim/cockpit/radios/gps_course_degtm')
 dataref('nav1_obs', 'sim/cockpit/radios/nav1_obs_degm')
 dataref('nav1_fromto', 'sim/cockpit/radios/nav1_fromto')
@@ -33,6 +28,10 @@ local wnd = float_wnd_create(180, 100, 1, true)
 float_wnd_set_position(wnd, 100, SCREEN_HIGHT - 150)
 float_wnd_set_title(wnd, 'Digital Instruments')
 float_wnd_set_imgui_builder(wnd, 'DIGI_build_window')
+
+local function clampAngle(angle)
+	return math.fmod(angle + 3600, 360)
+end
 
 function DIGI_build_window(wnd, x, y)
     imgui.TextUnformatted('        NAV1    NAV2')
