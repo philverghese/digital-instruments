@@ -11,6 +11,7 @@ if not SUPPORTS_FLOATING_WINDOWS then
 end
 
 require('graphics')
+require('math')
 
 dataref('gps1_crs', 'sim/cockpit/radios/gps_course_degtm')
 dataref('nav1_obs', 'sim/cockpit/radios/nav1_obs_degm')
@@ -28,10 +29,14 @@ float_wnd_set_position(wnd, 100, SCREEN_HIGHT - 150)
 float_wnd_set_title(wnd, 'Digital Instruments')
 float_wnd_set_imgui_builder(wnd, 'DIGI_build_window')
 
+local function clampAngle(angle)
+	return math.fmod(angle + 3600, 360)
+end
+
 function DIGI_build_window(wnd, x, y)
     imgui.TextUnformatted('        NAV1    NAV2')
-    imgui.TextUnformatted('GPS     ' .. string.format('%03d', gps1_crs) .. string.format('     %03d', gps2_crs))
-    imgui.TextUnformatted('OBS     ' .. string.format('%03d', nav1_obs) .. string.format('     %03d', nav2_obs))
+    imgui.TextUnformatted('GPS     ' .. string.format('%03d', clampAngle(gps1_crs)) .. string.format('     %03d', clampAngle(gps2_crs)))
+    imgui.TextUnformatted('OBS     ' .. string.format('%03d', clampAngle(nav1_obs)) .. string.format('     %03d', clampAngle(nav2_obs)))
     imgui.TextUnformatted('FLAG    ' .. string.format('%-4s', fromto_text[nav1_fromto]) .. string.format('    %-4s', fromto_text[nav2_fromto]))
     imgui.TextUnformatted('DME     ' .. string.format('%.1f', nav1_dme) .. string.format('     %.1f', nav2_dme))
 end
