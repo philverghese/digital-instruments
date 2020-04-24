@@ -9,4 +9,6 @@ Fly with Lua plugin for X-Plane that gives digital readings of analog instrument
 3. Copy `digital-instruments.lua` from this page to `X-Plane 11\Resources\plugins\FlyWithLua\Scripts`
 
 # Using
-A little window showing information from Nav1 and Nav2 will appear. If you close it by mistake, you can re-open it with the menus. Plugins > FlyWithLua > Reload all Lua script files
+A little window showing information from Nav1 and Nav2 will appear. If you close it by mistake, you can re-open it with the menus: Plugins > FlyWithLua Macros > Toggle digital instruments window.
+
+You can bind a key or button to the X-Plane command `FlyWithLua/digital-instruments/toggle_window` to toggle the window.
