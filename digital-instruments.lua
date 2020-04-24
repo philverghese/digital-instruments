@@ -28,12 +28,6 @@ dataref('DIGI_nav2_dme', 'sim/cockpit/radios/nav2_dme_dist_m')
 
 local fromto_text = {[0]='OFF', [1]='TO', [2]='FROM'}
 
--- Initialize window
-local wnd = float_wnd_create(180, 100, 1, true)
-float_wnd_set_position(wnd, 100, SCREEN_HIGHT - 150)
-float_wnd_set_title(wnd, 'Digital Instruments')
-float_wnd_set_imgui_builder(wnd, 'DIGI_build_window')
-
 local function clampAngle(angle)
 	return math.fmod(angle + 3600, 360)
 end
@@ -51,3 +45,45 @@ function DIGI_build_window(wnd, x, y)
     imgui.TextUnformatted('FLAG    ' .. string.format('%-4s', fromto_text[DIGI_nav1_fromto]) .. string.format('    %-4s', fromto_text[DIGI_nav2_fromto]))
     imgui.TextUnformatted('DME     ' .. string.format('%.1f', DIGI_nav1_dme) .. string.format('     %.1f', DIGI_nav2_dme))
 end
+
+DIGI_wnd = nil
+
+function DIGI_show_wnd()
+    DIGI_wnd = float_wnd_create(180, 100, 1, true)
+    float_wnd_set_position(DIGI_wnd, 100, SCREEN_HIGHT - 150)
+    float_wnd_set_title(DIGI_wnd, 'Digital Instruments')
+    float_wnd_set_imgui_builder(DIGI_wnd, 'DIGI_build_window')
+    float_wnd_set_onclose(DIGI_wnd, 'DIGI_closed_wnd')
+end
+
+function DIGI_hide_wnd()
+    if DIGI_wnd then
+        float_wnd_destroy(DIGI_wnd)
+    end
+    DIGI_wnd = nil
+end
+
+function DIGI_closed_wnd()
+    if DIGI_wnd then
+        DIGI_wnd = nil
+    end
+end
+
+function DIGI_toggle_wnd()
+    if DIGI_wnd then
+        DIGI_hide_wnd()
+    else
+        DIGI_show_wnd()
+    end
+end
+
+-- Main
+DIGI_show_wnd()
+
+-- Menu item to hide/show window
+add_macro('Toggle digital instruments window', 'DIGI_toggle_wnd()')
+
+-- Command you can bind to hide/show window
+create_command('FlyWithLua/digital-instruments/toggle_window',
+    'Toggle the Digital Instruments windows',
+    'DIGI_toggle_wnd()', '', '')
