@@ -46,39 +46,39 @@ function DIGI_build_window(wnd, x, y)
     imgui.TextUnformatted('DME     ' .. string.format('%.1f', DIGI_nav1_dme) .. string.format('     %.1f', DIGI_nav2_dme))
 end
 
-DIGI_wnd = nil
+local wnd = nil
 
-function DIGI_show_wnd()
-    DIGI_wnd = float_wnd_create(180, 100, 1, true)
-    float_wnd_set_position(DIGI_wnd, 100, SCREEN_HIGHT - 150)
-    float_wnd_set_title(DIGI_wnd, 'Digital Instruments')
-    float_wnd_set_imgui_builder(DIGI_wnd, 'DIGI_build_window')
-    float_wnd_set_onclose(DIGI_wnd, 'DIGI_closed_wnd')
+local function show_wnd()
+    wnd = float_wnd_create(180, 100, 1, true)
+    float_wnd_set_position(wnd, 100, SCREEN_HIGHT - 150)
+    float_wnd_set_title(wnd, 'Digital Instruments')
+    float_wnd_set_imgui_builder(wnd, 'DIGI_build_window')
+    float_wnd_set_onclose(wnd, 'DIGI_closed_wnd')
 end
 
-function DIGI_hide_wnd()
-    if DIGI_wnd then
-        float_wnd_destroy(DIGI_wnd)
+local function hide_wnd()
+    if wnd then
+        float_wnd_destroy(wnd)
     end
-    DIGI_wnd = nil
+    wnd = nil
 end
 
 function DIGI_closed_wnd()
-    if DIGI_wnd then
-        DIGI_wnd = nil
+    if wnd then
+        wnd = nil
     end
 end
 
 function DIGI_toggle_wnd()
-    if DIGI_wnd then
-        DIGI_hide_wnd()
+    if wnd then
+        hide_wnd()
     else
-        DIGI_show_wnd()
+        show_wnd()
     end
 end
 
 -- Main
-DIGI_show_wnd()
+show_wnd()
 
 -- Menu item to hide/show window
 add_macro('Toggle digital instruments window', 'DIGI_toggle_wnd()')
